@@ -268,6 +268,16 @@ public class BrowsePresenter extends BasePresenter<BrowseView> implements Sectio
         mLocalGridMappings.put(MediaGroup.TYPE_PLAYBACK_QUEUE, () -> Playlist.instance().getAll());
     }
 
+    /**
+     * Précharge les données du menu sans nécessiter la vue.
+     * Cette méthode peut être appelée avant de quitter la vidéo pour éviter l'écran noir.
+     */
+    public void preload() {
+        // Initialiser les données des sections sans nécessiter la vue
+        initPinnedData();
+        sortSections();
+    }
+
     public void updateSections() {
         if (getView() == null) {
             return;

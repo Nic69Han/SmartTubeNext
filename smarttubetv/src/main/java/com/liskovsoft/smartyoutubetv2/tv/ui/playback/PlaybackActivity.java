@@ -14,6 +14,7 @@ import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerEngine;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.AppDialogPresenter;
+import com.liskovsoft.smartyoutubetv2.common.app.presenters.BrowsePresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.PlaybackView;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.MainUIData;
@@ -175,6 +176,9 @@ public class PlaybackActivity extends LeanbackActivity {
             enterPipMode(); // NOTE: without this call app will hangs when pressing on PIP button
         }
 
+        // Précharger le menu avant de quitter la vidéo pour éviter l'écran noir
+        BrowsePresenter.instance(this).preload();
+
         if (doNotDestroy() && !skipPip()) {
             mPlaybackFragment.blockEngine(true);
             // Ensure to opening this activity when the user is returning to the app
@@ -195,6 +199,8 @@ public class PlaybackActivity extends LeanbackActivity {
 
     @Override
     public void finishReally() {
+        // Précharger le menu avant de quitter la vidéo pour éviter l'écran noir
+        BrowsePresenter.instance(this).preload();
         mPlaybackFragment.onFinish();
         super.finishReally();
     }
