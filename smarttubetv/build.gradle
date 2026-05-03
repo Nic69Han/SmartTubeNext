@@ -51,6 +51,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    namespace "com.liskovsoft.smartyoutubetv2.tv"
     compileSdkVersion project.properties.compileSdkVersion
     buildToolsVersion project.properties.buildToolsVersion
     testOptions.unitTests.includeAndroidResources = true
